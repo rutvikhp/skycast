@@ -1,32 +1,69 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import axios from 'axios'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>BOILERMAKER</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+
+class Navbar extends Component{
+  constructor(){
+    super()
+    this.state = {
+      city: '',
+      lat: '',
+      lng: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(evt){
+    this.setState({city: evt.target.value})
+  }
+
+  handleSubmit(evt){
+    evt.preventDefault()
+    let geocoder = new google.maps.Geocoder();
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log(position.coords.latitude)
+        console.log(position.coords.longitude)
+      })
+      console.log('hello')
+    }
+    geocoder.geocode({address: this.state.city}, (results, status) => {
+      if (status === 'OK'){
+        let lat = results[0].geometry.location.lat()
+        let lng = results[0].geometry.location.lng()
+
+        axios.post('/api/weather', {lat, lng})
+        .then(res => res.data)
+        .then(results => {
+          console.log(results)
+          this.setState({
+            lat,
+            lng
+          })
+        })
+      }
+    })
+  }
+
+  render(){
+    return (
+      <div>
+        <nav>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" onChange={this.handleChange} />
+            <button type="submit" > Click </button>
+          </form>
+        </nav>
+        <hr />
+      </div>
+    )
+  }
+}
 
 /**
  * CONTAINER

@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "skycast",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Skycast Bluewolf Assignment",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -36,12 +36,14 @@
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.5.8",
     "react": "^16.0.0",
+    "react-animated-weather": "^1.0.3",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.78.3",
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3"
   },
@@ -53,7 +55,7 @@
     "@babel/preset-stage-2": "^7.0.0-beta.40",
     "@babel/register": "^7.0.0-beta.40",
     "axios-mock-adapter": "^1.9.0",
-    "babel-eslint": "^8.0.1",
+    "babel-eslint": "^8.2.2",
     "babel-loader": "^8.0.0-beta.2",
     "chai": "^3.5.0",
     "enzyme": "^3.0.0",

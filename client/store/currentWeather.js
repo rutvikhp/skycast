@@ -12,12 +12,16 @@ const getCurrentAreaWeatherAction = (currentWeather) => {
 export const getCurrentAreaWeatherThunk = (lat, lng) => dispatch =>
   axios.post('/api/weather', {lat, lng})
   .then(res => res.data)
-  .then(result => dispatch(getCurrentAreaWeatherAction(result))
+  .then(result => {
+    console.log(result)
+    dispatch(getCurrentAreaWeatherAction(result))}
 )
 
 const initialState = {
   summary: '',
-  temp: '',
+  currentTemp: '',
+  tempHigh: '',
+  tempLow: '',
   feelsLikeTemp: '',
   icon: '',
   time: ''
@@ -29,8 +33,12 @@ export default function(state = initialState, action){
       return {
         ...state,
         summary: action.currentWeather.hourly.summary,
-        temp: action.currentWeather.currently.temperature,
-        icon: action.currentWeather.currently.icon
+        currentTemp: Math.floor(action.currentWeather.currently.temperature),
+        tempHigh: Math.floor(action.currentWeather.daily.data[0].temperatureMax),
+        tempLow: Math.floor(action.currentWeather.daily.data[0].temperatureMin),
+        feelsLikeTemp: Math.floor(action.currentWeather.currently.apparentTemperature),
+        icon: action.currentWeather.currently.icon,
+        time: action.currentWeather.currently.time
       }
     default:
       return state

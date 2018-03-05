@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import currentWeather from './currentWeather'
+import weeklyWeather from './weekly'
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -12,7 +13,8 @@ const middleware = composeWithDevTools(applyMiddleware(
 
 const reducer = combineReducers({
   user,
-  currentWeather
+  currentWeather,
+  weeklyWeather
 })
 
 const store = createStore(reducer, middleware)
@@ -20,3 +22,4 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './user'
 export * from './currentWeather'
+export * from './weekly'

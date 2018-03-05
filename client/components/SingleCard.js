@@ -1,18 +1,28 @@
 import React from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
 
-const SingleCard = () => {
+const SingleCard = (props) => {
+
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const data = props.data
+  let d = new Date(data.time * 1000);
+  const day = days[d.getDay()]
+  const month = months[d.getMonth()]
+  const date = d.getDate()
+
   const defaults = {
-    icon: 'CLEAR_DAY',
+    icon: data.icon.toUpperCase().replace(/-/g, '_'),
     color: 'orange',
     size: 45,
     animate: true
   };
+
   return (
     <div className="ui card">
       <div className="content">
-        <div className="header">Today</div>
-        <div className="meta">March 4</div>
+        <div className="header">{day}</div>
+        <div className="meta">{month} {date}</div>
       </div>
       <div>
         <ReactAnimatedWeather
@@ -24,15 +34,11 @@ const SingleCard = () => {
       </div>
       <div className="content">
         <div className="header">
-          63<sup>&deg; </sup><span className="meta">/45<sup>&deg;</sup>F</span>
+          {data.tempHigh}<sup>&deg; </sup><span className="meta">/{data.tempLow}<sup>&deg;</sup>F</span>
         </div>
-        <div className="description">clear sky</div>
+        <div className="description">{data.summary}</div>
       </div>
-      {/* <div className="extra content">
-        <a>
-          <i aria-hidden="true" className="user icon"></i>16 Friends</a>
-        </div> */}
-      </div>
+    </div>
     )
 }
 export default SingleCard

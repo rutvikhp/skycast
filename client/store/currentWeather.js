@@ -1,44 +1,27 @@
 import axios from 'axios'
 
-const GET_CURRENT_AREA_WEATHER = 'GET_CURRENT_AREA_WEATHER'
+const SET_LOCATION = 'SET_LOCATION'
 
-const getCurrentAreaWeatherAction = (currentWeather) => {
+export const setLocationAction = (lat, lng) => {
   return {
-    type: GET_CURRENT_AREA_WEATHER,
-    currentWeather
+    type: SET_LOCATION,
+    lat,
+    lng
   }
 }
 
-export const getCurrentAreaWeatherThunk = (lat, lng) => dispatch =>
-  axios.post('/api/weather', {lat, lng})
-  .then(res => res.data)
-  .then(result => {
-    console.log(result)
-    dispatch(getCurrentAreaWeatherAction(result))}
-)
-
 const initialState = {
-  summary: '',
-  currentTemp: '',
-  tempHigh: '',
-  tempLow: '',
-  feelsLikeTemp: '',
-  icon: '',
-  time: ''
+  lat: '',
+  lng: ''
 }
 
 export default function(state = initialState, action){
   switch (action.type) {
-    case GET_CURRENT_AREA_WEATHER:
+    case SET_LOCATION:
       return {
         ...state,
-        summary: action.currentWeather.hourly.summary,
-        currentTemp: Math.floor(action.currentWeather.currently.temperature),
-        tempHigh: Math.floor(action.currentWeather.daily.data[0].temperatureMax),
-        tempLow: Math.floor(action.currentWeather.daily.data[0].temperatureMin),
-        feelsLikeTemp: Math.floor(action.currentWeather.currently.apparentTemperature),
-        icon: action.currentWeather.currently.icon,
-        time: action.currentWeather.currently.time
+        lat: action.lat,
+        lng: action.lng
       }
     default:
       return state

@@ -13,6 +13,7 @@ export const getWeeklyAreaWeatherThunk = (lat, lng) => dispatch =>
   axios.post('/api/weather', {lat, lng})
   .then(res => res.data)
   .then(result => {
+    console.log(result)
     result = result.daily.data.map(arr => (
       {
         icon: arr.icon,

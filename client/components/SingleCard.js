@@ -19,9 +19,9 @@ const SingleCard = (props) => {
   };
 
   return (
-    <div className="ui card">
+    <div>
       <div className="content">
-        <div className="header">{day}</div>
+        <div className="header" style={{color:"black"}}>{day}</div>
         <div className="meta">{month} {date}</div>
       </div>
       <div>
@@ -33,10 +33,10 @@ const SingleCard = (props) => {
         />
       </div>
       <div className="content">
-        <div className="header">
+        <div className="header" style={{color:"black"}}>
           {data.tempHigh}<sup>&deg; </sup><span className="meta">/{data.tempLow}<sup>&deg;</sup>F</span>
         </div>
-        <div className="description">{data.summary}</div>
+        <div className="description" style={{color:"black"}}>{data.summary}</div>
       </div>
     </div>
     )

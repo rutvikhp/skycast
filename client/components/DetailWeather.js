@@ -6,17 +6,13 @@ import {Grid, Table} from 'semantic-ui-react'
 import ReactAnimatedWeather from 'react-animated-weather';
 class DetailWeather extends Component{
 
-  constructor(){
-    super()
-  }
-
   componentDidMount(){
     this.props.getDetailWeather(this.props.currentWeather.lat, this.props.currentWeather.lng, this.props.match.params.time)
   }
 
   render(){
     const iterator = []
-    for (let i=0; i<24; i++) iterator.push(i)
+    for (let i = 0; i < 24; i++) iterator.push(i)
     const arr = [12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11]
     return (
       <Grid>
@@ -26,7 +22,7 @@ class DetailWeather extends Component{
           <Grid.Column width={12}>
             {
               this.props.detailWeather.map((data, idx) => (
-                <Grid.Row>
+                <Grid.Row key = {idx}>
                   <Grid.Column width ={6}>
                     {arr[idx]}
                     {  (idx<12) ?

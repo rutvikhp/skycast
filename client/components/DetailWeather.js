@@ -23,58 +23,35 @@ class DetailWeather extends Component{
         <Grid.Row>
           <Grid.Column width={2}>
           </Grid.Column>
-
-            <Grid.Column width={12}>
-              <Table celled >
-                <Table.Body>
-                  {
-                    this.props.detailWeather.map((data, idx) => (
-                      <Grid.Row columns="equal">
-                        <Grid.Column width ={3}>
-
-                          {
-                            (idx<12) ?
-                              <div>{arr[idx]} am</div>
-                              :
-                              <div>{arr[idx]} pm</div>
-                          }
-
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-
-                          <ReactAnimatedWeather
-                            icon={data.icon}
-                            color="orange"
-                            size={16}
-                            animate={true}
-                          />
-
-                        </Grid.Column>
-                      </Grid.Row>
-                    ))
-                  }
-                  {/* <Table.Row>
-                    <Table.Cell>
-
-                    </Table.Cell>
-                    {
-                      this.props.detailWeather.map(data =>(
-                        <Table.Cell>
-                          <ReactAnimatedWeather
-                            icon={data.icon}
-                            color="orange"
-                            size={16}
-                            animate={true}
-                          />
-                        </Table.Cell>
-                      ))
+          <Grid.Column width={12}>
+            {
+              this.props.detailWeather.map((data, idx) => (
+                <Grid.Row>
+                  <Grid.Column width ={6}>
+                    {arr[idx]}
+                    {  (idx<12) ?
+                      <span> am</span>
+                      :
+                      <span> pm</span>
                     }
-                  </Table.Row> */}
-                </Table.Body>
-              </Table>
-            </Grid.Column>
-            <Grid.Column width={2}>
-            </Grid.Column>
+                  </Grid.Column>
+                  <Grid.Column width={6}>
+
+                    <ReactAnimatedWeather
+                      icon={data.icon}
+                      color="orange"
+                      size={16}
+                      animate={true}
+                    />
+
+                  </Grid.Column>
+                </Grid.Row>
+              ))
+            }
+
+          </Grid.Column>
+          <Grid.Column width={2}>
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     )

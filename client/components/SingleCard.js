@@ -36,7 +36,7 @@ const SingleCard = (props) => {
         <div className="header" style={{color:"black"}}>
           {data.tempHigh}<sup>&deg; </sup><span className="meta">/{data.tempLow}<sup>&deg;</sup>F</span>
         </div>
-        <div className="description" style={{color:"black", paddingTop : "30px"}}>{data.summary}</div>
+        <div className="description" style={{color:"black", paddingTop : "6%"}}>{data.summary}</div>
       </div>
     </div>
     )

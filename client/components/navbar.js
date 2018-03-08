@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {getWeeklyAreaWeatherThunk, setLocationAction} from '../store'
 
 class Navbar extends Component{
@@ -9,7 +7,7 @@ class Navbar extends Component{
     super()
     this.state = {
       city: '',
-      searchText: []
+      searchText: '',
     }
     // this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -20,15 +18,19 @@ class Navbar extends Component{
       navigator.geolocation.getCurrentPosition(position => {
         this.props.setLocation(position.coords.latitude, position.coords.longitude)
         this.props.getCityWeather(position.coords.latitude, position.coords.longitude)
+        let geocoder = new google.maps.Geocoder();
+        let location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        geocoder.geocode({location: location}, (results, status) => {
+          if (status === 'OK'){
+            this.setState({city: results[2].formatted_address.split(',')[1]})
+          }
+        })
       })
     }
-    // localStorage.setItem("lastname", "Rutvik");
-    console.log(localStorage.getItem("prevSearch"));
   }
-
-  // handleChange(evt){
-  //   this.setState({city: evt.target.value})
-  // }
 
   handleSubmit(evt){
     evt.preventDefault()
@@ -48,9 +50,9 @@ class Navbar extends Component{
         let lng = results[0].geometry.location.lng()
         this.props.setLocation(lat, lng)
         this.props.getCityWeather(lat, lng)
+        this.setState({city, searchText:''})
       }
     })
-    this.setState({city})
   }
 
   render(){
@@ -59,10 +61,11 @@ class Navbar extends Component{
         <nav>
           <div style={ui_four_cards}>
             <form onSubmit={this.handleSubmit}>
-              <input type="text" name="city" />
+              <input type="text" name="city" value={this.state.searchText}
+                onChange={(evt)=>{this.setState({searchText:evt.target.value})}}/>
               <button type="submit" > Click </button>
             </form>
-            {/* <label>City: </label>{this.state.city} */}
+            <label>City: </label>{this.state.city}
           </div>
         </nav>
         <hr />

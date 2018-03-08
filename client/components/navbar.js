@@ -9,29 +9,40 @@ class Navbar extends Component{
     super()
     this.state = {
       city: '',
+      searchText: []
     }
-    this.handleChange = this.handleChange.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
-    let geocoder = new google.maps.Geocoder();
     if (navigator.geolocation){
       navigator.geolocation.getCurrentPosition(position => {
         this.props.setLocation(position.coords.latitude, position.coords.longitude)
         this.props.getCityWeather(position.coords.latitude, position.coords.longitude)
       })
     }
+    // localStorage.setItem("lastname", "Rutvik");
+    console.log(localStorage.getItem("prevSearch"));
   }
 
-  handleChange(evt){
-    this.setState({city: evt.target.value})
-  }
+  // handleChange(evt){
+  //   this.setState({city: evt.target.value})
+  // }
 
   handleSubmit(evt){
     evt.preventDefault()
+    const city = evt.target.city.value
+    if (localStorage.getItem("prevSearch")){
+      let storedNames = JSON.parse(localStorage.getItem("prevSearch"));
+      storedNames = [city, ...storedNames]
+      localStorage.setItem("prevSearch", JSON.stringify(storedNames))
+    }
+    else {
+      localStorage.setItem("prevSearch", city)
+    }
     let geocoder = new google.maps.Geocoder();
-    geocoder.geocode({address: this.state.city}, (results, status) => {
+    geocoder.geocode({address: city}, (results, status) => {
       if (status === 'OK'){
         let lat = results[0].geometry.location.lat()
         let lng = results[0].geometry.location.lng()
@@ -39,22 +50,30 @@ class Navbar extends Component{
         this.props.getCityWeather(lat, lng)
       }
     })
+    this.setState({city})
   }
 
   render(){
     return (
       <div>
         <nav>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleChange} />
-            <button type="submit" > Click </button>
-          </form>
+          <div style={ui_four_cards}>
+            <form onSubmit={this.handleSubmit}>
+              <input type="text" name="city" />
+              <button type="submit" > Click </button>
+            </form>
+            {/* <label>City: </label>{this.state.city} */}
+          </div>
         </nav>
         <hr />
       </div>
     )
   }
 }
+
+var ui_four_cards = {
+  padding : "10px 100px"
+};
 
 /**
  * CONTAINER

@@ -19,12 +19,12 @@ const SingleCard = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <div className="content">
         <div className="header" style={{color:"black"}}>{day}</div>
         <div className="meta">{month} {date}</div>
       </div>
-      <div>
+      <div style={{paddingTop : "20px"}}>
         <ReactAnimatedWeather
           icon={defaults.icon}
           color={defaults.color}
@@ -36,7 +36,7 @@ const SingleCard = (props) => {
         <div className="header" style={{color:"black"}}>
           {data.tempHigh}<sup>&deg; </sup><span className="meta">/{data.tempLow}<sup>&deg;</sup>F</span>
         </div>
-        <div className="description" style={{color:"black"}}>{data.summary}</div>
+        <div className="description" style={{color:"black", paddingTop : "30px"}}>{data.summary}</div>
       </div>
     </div>
     )

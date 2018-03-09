@@ -65,10 +65,13 @@ class Navbar extends Component{
                 onChange={(evt)=>{this.setState({searchText:evt.target.value})}}/>
               <button type="submit" > Click </button>
             </form>
-            <label>City: </label>{this.state.city}
+            
           </div>
         </nav>
         <hr />
+        <div style={{paddingTop: "10px", paddingBottom:'10px', textAlign: 'center', fontSize : '20px'}} >
+        <label >Your Search: {this.state.city} </label>
+        </div>
       </div>
     )
   }

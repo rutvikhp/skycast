@@ -35,14 +35,14 @@ class Navbar extends Component{
   handleSubmit(evt){
     evt.preventDefault()
     const city = evt.target.city.value
-    if (localStorage.getItem("prevSearch")){
-      let storedNames = JSON.parse(localStorage.getItem("prevSearch"));
-      storedNames = [city, ...storedNames]
-      localStorage.setItem("prevSearch", JSON.stringify(storedNames))
-    }
-    else {
-      localStorage.setItem("prevSearch", city)
-    }
+    // if (localStorage.getItem("prevSearch")){
+    //   let storedNames = JSON.parse(localStorage.getItem("prevSearch"));
+    //   storedNames = [city, ...storedNames]
+    //   localStorage.setItem("prevSearch", JSON.stringify(storedNames))
+    // }
+    // else {
+    //   localStorage.setItem("prevSearch", city)
+    // }
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({address: city}, (results, status) => {
       if (status === 'OK'){
@@ -65,7 +65,7 @@ class Navbar extends Component{
                 onChange={(evt)=>{this.setState({searchText:evt.target.value})}}/>
               <button type="submit" > Click </button>
             </form>
-            
+
           </div>
         </nav>
         <hr />
